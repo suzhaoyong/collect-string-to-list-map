@@ -1,8 +1,9 @@
 package com.github.hcsp.collection;
 
+import java.util.Comparator;
 import java.util.Objects;
 
-public class User {
+public class User implements Comparator<User> {
     // 用户的id
     private final Integer id;
     // 用户的姓名
@@ -50,5 +51,11 @@ public class User {
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+    @Override
+    public int compare(User o1, User o2) {
+        // TODO Auto-generated method stub
+        return o1.age >= o2.age ? 1 : -1;
     }
 }
