@@ -1,8 +1,7 @@
 package com.github.hcsp.collection;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class Main {
     // 请编写一个方法，对传入的List<User>进行如下处理：
@@ -12,7 +11,18 @@ public class Main {
     // 返回如下映射：
     //    技术部 -> [{name=李四, department=技术部, age=30 }, {name=张三, department=技术部, age=40 }]
     //    市场部 -> [{name=王五, department=市场部, age=40 }]
-    public static Map<String, List<User>> collect(List<User> users) {}
+    public static Map<String, List<User>> collect(List<User> users) {
+        Map<String, List<User>> map = new HashMap<>();
+        List<User> list = users.stream().sorted(Comparator.comparing(User::getAge)).collect(Collectors.toList());
+        for (User user : list) {
+            if (map.containsKey(user.getDepartment())) {
+                map.get(user.getDepartment()).add(user);
+            } else {
+                map.put(user.getDepartment(), new ArrayList<>(Collections.singleton(user)));
+            }
+        }
+        return map;
+    }
 
     public static void main(String[] args) {
         System.out.println(
