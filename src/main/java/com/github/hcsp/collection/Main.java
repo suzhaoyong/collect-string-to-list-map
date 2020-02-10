@@ -1,8 +1,6 @@
 package com.github.hcsp.collection;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Main {
     // 请编写一个方法，对传入的List<User>进行如下处理：
@@ -12,7 +10,35 @@ public class Main {
     // 返回如下映射：
     //    技术部 -> [{name=李四, department=技术部, age=30 }, {name=张三, department=技术部, age=40 }]
     //    市场部 -> [{name=王五, department=市场部, age=40 }]
-    public static Map<String, List<User>> collect(List<User> users) {}
+
+//    方案一：研究了guava的官方文档，发现可以用TreeMultimap将key和value按照相应compare规则进行排序，以下函数经过测试可行
+//    public static Multimap<String, User> collect(List<User> users) {
+//        Multimap<String, User> map = TreeMultimap.create();
+//        for (User i : users) {
+//            map.put(i.getDepartment(), i);
+//        }
+//        return map;
+//    }
+
+    //方案二：先提取部门名称，然后根据不同的部门名称创建相应的list表，将属于该部门的user放进list中，再根据年龄进行排序
+    public static Map<String, List<User>> collect(List<User> users) {
+        Map<String, List<User>> map = new HashMap<>();
+        Set<String> set = new HashSet<>();
+        for (User user : users) {
+            set.add(user.getDepartment());
+        }
+        for (String department : set) {
+            List<User> list = new ArrayList<>();
+            for (User user : users) {
+                if (department.equals(user.getDepartment())) {
+                    list.add(user);
+                }
+            }
+            Collections.sort(list);
+            map.put(department, list);
+        }
+        return map;
+    }
 
     public static void main(String[] args) {
         System.out.println(
