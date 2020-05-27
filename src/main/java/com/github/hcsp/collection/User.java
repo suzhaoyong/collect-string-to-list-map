@@ -8,7 +8,7 @@ public class User {
     // 用户的姓名
     private final String name;
     // 用户的年龄
-    private final int age;
+    private final Integer age;
     // 用户的部门，例如"技术部"/"市场部"
     private final String department;
 
@@ -27,7 +27,7 @@ public class User {
         return name;
     }
 
-    public int getAge() {
+    public Integer getAge() {
         return age;
     }
 
