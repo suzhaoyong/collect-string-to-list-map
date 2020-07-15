@@ -1,6 +1,10 @@
 package com.github.hcsp.collection;
 
+
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -12,7 +16,32 @@ public class Main {
     // 返回如下映射：
     //    技术部 -> [{name=李四, department=技术部, age=30 }, {name=张三, department=技术部, age=40 }]
     //    市场部 -> [{name=王五, department=市场部, age=40 }]
-    public static Map<String, List<User>> collect(List<User> users) {}
+    public static Map<String, List<User>> collect(List<User> users) {
+
+        Map<String, List<User>> mapByDepartment = new HashMap<>();
+        HashSet<String> departmentSet = new HashSet<>();
+        for (User u : users) {
+            departmentSet.add(u.getDepartment());
+        }
+        for (String d : departmentSet) {
+            LinkedList<User> list = new LinkedList<>();
+            for (User u : users) {
+                if (u.getDepartment().equals(d)) {
+                    list.add(u);
+                }
+            }
+            list.sort((o1, o2) -> {
+                if (o1.getAge() > o2.getAge()) {
+                    return 1;
+                } else if (o1.getAge() < o2.getAge()) {
+                    return -1;
+                }
+                return 0;
+            });
+            mapByDepartment.put(d, list);
+        }
+        return mapByDepartment;
+    }
 
     public static void main(String[] args) {
         System.out.println(
@@ -22,4 +51,6 @@ public class Main {
                                 new User(2, "李四", 30, "技术部"),
                                 new User(3, "王五", 40, "市场部"))));
     }
+
+
 }
