@@ -34,6 +34,14 @@ public class User {
     public String getDepartment() {
         return department;
     }
+    @Override
+    public String toString() {
+        return "{" +
+                "name='" + name + '\'' +
+                ", department='" + department + '\'' +
+                ", age=" + age +
+                '}';
+    }
 
     @Override
     public boolean equals(Object o) {
