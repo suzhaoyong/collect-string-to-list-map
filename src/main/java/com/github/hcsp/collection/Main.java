@@ -1,6 +1,8 @@
 package com.github.hcsp.collection;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -12,7 +14,25 @@ public class Main {
     // 返回如下映射：
     //    技术部 -> [{name=李四, department=技术部, age=30 }, {name=张三, department=技术部, age=40 }]
     //    市场部 -> [{name=王五, department=市场部, age=40 }]
-    public static Map<String, List<User>> collect(List<User> users) {}
+    public static Map<String, List<User>> collect(List<User> users) {
+        sortUserByAge(users);
+        Map<String, List<User>> resultMap = new HashMap<>();
+        users.forEach(user -> {
+            String departmentName = user.getDepartment();
+            if (resultMap.containsKey(departmentName)) {
+                resultMap.get(departmentName).add(user);
+            } else {
+                List<User> list = new ArrayList<>();
+                list.add(user);
+                resultMap.put(departmentName, list);
+            }
+        });
+        return resultMap;
+    }
+
+    private static void sortUserByAge(List<User> users) {
+        users.sort(User::compareTo);
+    }
 
     public static void main(String[] args) {
         System.out.println(
