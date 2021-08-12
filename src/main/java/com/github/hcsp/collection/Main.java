@@ -1,6 +1,8 @@
 package com.github.hcsp.collection;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 
 public class Main {
     // 请编写一个方法，对传入的List<User>进行如下处理：
@@ -10,36 +12,7 @@ public class Main {
     // 返回如下映射：
     //    技术部 -> [{name=李四, department=技术部, age=30 }, {name=张三, department=技术部, age=40 }]
     //    市场部 -> [{name=王五, department=市场部, age=40 }]
-    public static Map<String, List<User>> collect(List<User> users) {
-        Map<String, List<User>> sortByDepart = new HashMap<>();
-        List<User> userList = new ArrayList<>();
-        Set<String> departmentName = new HashSet<>();
-        for (User depart : users
-        ) {
-            if (sortByDepart.keySet().contains(depart.getDepartment())) {
-                List<User> value = sortByDepart.get(depart.getDepartment());
-                value.add(depart);
-                Set<User> userSet = new TreeSet<>(new Comparator<User>() {
-                    @Override
-                    public int compare(User o1, User o2) {
-                        return o1.getAge() - o2.getAge();
-                    }
-                });
-                userSet.addAll(value);
-//                LinkedList<User> user = new LinkedList<>();
-//                user.addAll(userSet);
-                value.clear();
-                value.addAll(userSet);
-                sortByDepart.put(depart.getDepartment(), value);
-            } else {
-                List<User> newDepart = new ArrayList();
-                newDepart.add(depart);
-                sortByDepart.put(depart.getDepartment(), newDepart);
-            }
-            departmentName.add(depart.getDepartment());
-        }
-        return sortByDepart;
-    }
+    public static Map<String, List<User>> collect(List<User> users) {}
 
     public static void main(String[] args) {
         System.out.println(
