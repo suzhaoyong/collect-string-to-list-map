@@ -12,6 +12,16 @@ public class User {
     // 用户的部门，例如"技术部"/"市场部"
     private final String department;
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", age=" + age +
+                ", department='" + department + '\'' +
+                '}';
+    }
+
     public User(Integer id, String name, int age, String department) {
         this.id = id;
         this.name = name;
