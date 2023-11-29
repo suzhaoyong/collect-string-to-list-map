@@ -1,8 +1,7 @@
 package com.github.hcsp.collection;
-
 import java.util.Objects;
 
-public class User {
+public class User  {
     // 用户的id
     private final Integer id;
     // 用户的姓名
@@ -17,6 +16,13 @@ public class User {
         this.name = name;
         this.age = age;
         this.department = department;
+    }
+
+    public User(User usr) {
+        id = usr.getId();
+        name = usr.getName();
+        age = usr.getAge();
+        department = usr.getDepartment();
     }
 
     public Integer getId() {
@@ -34,6 +40,7 @@ public class User {
     public String getDepartment() {
         return department;
     }
+
 
     @Override
     public boolean equals(Object o) {
